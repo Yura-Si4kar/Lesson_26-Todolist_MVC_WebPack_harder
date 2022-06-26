@@ -1,4 +1,4 @@
-class TodosListView {
+export default class TodosListView {
     static LIST_TEMPLATE = `<ol class="input_blocks"></ol>`;
     static LIST_ITEM_TEMPLATE = `<li class="list_elements {{doneClass}}" data-id='{{id}}'>
         {{title}}

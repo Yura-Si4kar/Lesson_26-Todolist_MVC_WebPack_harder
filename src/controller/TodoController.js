@@ -1,4 +1,7 @@
-class TodosController {
+import TodosView from '../view/TodoView';
+import TodosCollection from '../model/TodoCollection';
+
+export default class TodosController {
     constructor($container) {
         this._view = new TodosView($container, {
             onToggle: (id) => this.toggleTodo(id),

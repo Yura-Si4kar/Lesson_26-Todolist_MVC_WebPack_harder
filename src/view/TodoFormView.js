@@ -1,4 +1,4 @@
-class TodoFormView {
+export default class TodoFormView {
     static FORM_TEMPLATE = `<form class="input_block" class="form">
         <input class="input_text" type="text" name="name" placeholder="Enter the task!">
         <button class="input_btn" type="submit">Click</button>        

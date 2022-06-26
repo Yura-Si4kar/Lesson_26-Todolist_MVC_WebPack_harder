@@ -1,4 +1,7 @@
-class TodosView {
+import TodosListView from './TodoListView';
+import TodoFormView from './TodoFormView';
+
+export default class TodosView {
     constructor($container, config) {
         this._todosListView = new TodosListView(config);
 
