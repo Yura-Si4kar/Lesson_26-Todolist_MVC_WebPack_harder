@@ -1,6 +1,6 @@
-import TodosController from './controller/TodoController';
+import UsersController from './controller/TodosController';
 import './css/style.css';
 
 $(() => {
-    new TodosController($('.container'));
+    new UsersController($('.container'));
 });
