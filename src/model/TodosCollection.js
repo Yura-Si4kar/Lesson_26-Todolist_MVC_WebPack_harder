@@ -18,32 +18,7 @@ export default class TodosCollection extends EventEmitter{
             });
     }
 
-    // toggleTodo(todoId) {
-    //     const todoItem = this.list.find(({ id }) => id == todoId);
-
-    //     if (!todoItem) {
-    //         return console.error('Id not found', todoId);
-    //     }
-
-    //     todoItem.isDone = !todoItem.isDone;
-
-    //     return fetch(this._url + todoId, {
-    //         method: 'PUT',
-    //         body: JSON.stringify(todoItem),
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //     });
-    // }
-
-    removeTodo(todoId) {
-        this.list = this.list.filter(({ id }) => id != todoId);
-
-        return fetch(this._url + todoId, {
-            method: 'DELETE',
-        });
-    }
-
+    
     addTodo(newTodo) {
         return fetch(this._url, {
             method: 'POST',
@@ -52,18 +27,28 @@ export default class TodosCollection extends EventEmitter{
                 'Content-Type': 'application/json',
             },
         })
-            .then((res) => res.json())
-            .then((data) => {
-                this.list.push(data);
-                this.trigger('add', data);
-            });
+        .then((res) => res.json())
+        .then((data) => {
+            const model = this._wrapModel(data);
+            this.list.push(model);
+            this.trigger('add', model);
+        });
     }
-
+    
+    get(id) {
+        return this.list.find((model) => model.id === id);
+    }
+    
     _wrapModel = (data) => {
         const model = new TodoModel(this._url, data);
         model.on(
             'delete',
             () => (this.list = this.list.filter(m => m !== model)),
+        );
+        
+        model.on(
+            'update',
+            () => (this.list = this.trigger('modelUpdate', model)),
         );
 
         return model;

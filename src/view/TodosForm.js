@@ -22,16 +22,26 @@ export default class TodosForm extends EventEmitter{
             const formData = this._getFormData();
 
             this.trigger('save', formData);
+
+            this.reset();
         });
+
+        this.$input = this.$el.find('input');
     }
 
     _getFormData = () => {
-        const taskName = this.$el.find(TodosForm.INPUT_SELECTOR).val();
+        const formData = {};
+
+        this.$el
+            .serializeArray()
+            .forEach(({ name, value }) => (formData[name] = value));
         
-        const formData = {title: taskName};
-
-        this.$el.trigger('reset');
-
         return formData;
+    }
+
+    reset() {
+        this.$input.each((_, input) => {
+            input.value = '';
+        });
     }
 }
