@@ -1,4 +1,3 @@
-import { interpolate } from '../../../useful software/useful_software';
 import EventEmitter from '../EventEmitter';
 
 export default class TodoRow extends EventEmitter{
@@ -37,7 +36,7 @@ export default class TodoRow extends EventEmitter{
     renderRow() {
         this.$el.empty();
         this.$el.html(
-            interpolate(TodoRow.todoTemplate, {
+            this.interpolate(TodoRow.todoTemplate, {
                 ...this._model,
                 doneClass: this._model.isDone ? 'done' : '',
             }),
@@ -51,4 +50,12 @@ export default class TodoRow extends EventEmitter{
     updateRow = () => {
         this.renderRow();
     };
+
+    interpolate(template, obj) {
+        for (let key in obj) {
+            template = template.replaceAll(`{{${key}}}`, obj[key]);
+        }
+
+        return template;
+    }
 }
