@@ -45,11 +45,6 @@ export default class TodosCollection extends EventEmitter{
             'delete',
             () => (this.list = this.list.filter(m => m !== model)),
         );
-        
-        model.on(
-            'update',
-            () => (this.list = this.trigger('modelUpdate', model)),
-        );
 
         return model;
     }

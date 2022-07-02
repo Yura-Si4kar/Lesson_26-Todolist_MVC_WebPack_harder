@@ -30,7 +30,7 @@ export default class TodoRow extends EventEmitter{
             e.stopPropagation();
     });
         this.$el.on('click', TodoRow.taskSelector, () =>
-            this.trigger('edit', this._model.toogle()),
+            this.trigger('edit', this._model.toggle()),
         );
     }
 

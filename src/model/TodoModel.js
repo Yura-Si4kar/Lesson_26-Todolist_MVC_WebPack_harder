@@ -35,7 +35,7 @@ export default class TodoModel extends EventEmitter{
     }
 
     save() {
-        return fetch(this._url, {
+        return fetch(this.url, {
             method: 'PUT',
             body: JSON.stringify(this),
             headers: {
